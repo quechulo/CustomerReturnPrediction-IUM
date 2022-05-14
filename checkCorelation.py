@@ -1,7 +1,9 @@
-import pandas as pd
-import seaborn as sn
-import matplotlib.pyplot as plt
 import jsonlines
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import random
 
 data = [[0,0,0,0,0],[0,0,0,0,0]]
 with jsonlines.open('./data/sessions.jsonl') as f:
@@ -32,15 +34,27 @@ with jsonlines.open('./data/sessions.jsonl') as f:
 
 print("The data to be plotted:\n")
 print(data)
+#
+
+df = pd.DataFrame(data)
+print(df)
+#
+
+#
+# Configure a custom diverging colormap
+#
+cmap = sns.diverging_palette(230, 20, as_cmap=True)
+#
+# Draw the heatmap
+#
 labels = ['VIEW_PRODUCT', 'BUY_PRODUCT']
 discount = [0, 5, 10, 15, 20]
 df_cm = pd.DataFrame(data, index=labels, columns=discount)
-
-# plotting the heatmap
-hm = sn.heatmap(data=df_cm, linewidths=.5)
-
-# displaying the plotted heatmap
+corr = df_cm.corr(method='spearman')
+mask = np.triu(np.ones_like(corr, dtype=bool))
+sns.heatmap(data=corr, linewidths=.5, annot=True, mask=mask, cmap=cmap)
 plt.show()
+#
 
 data = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
 with jsonlines.open('./data/sessions.jsonl') as f:
@@ -82,9 +96,12 @@ print(data)
 labels = ['January', 'February', 'March', 'April']
 event_types = ['VIEW_PRODUCT', 'BUY_PRODUCT', 'RETURN_PRODUCT']
 df_cm = pd.DataFrame(data, index=labels, columns=event_types)
+corr = df.corr(method='spearman')
+print(corr)
 
 # plotting the heatmap
-hm = sn.heatmap(data=df_cm, linewidths=.5)
+mask = np.triu(np.ones_like(corr, dtype=bool))
+sns.heatmap(data=corr, linewidths=.5, annot=True, mask=mask, cmap=cmap)
 
 # displaying the plotted heatmap
 plt.show()
