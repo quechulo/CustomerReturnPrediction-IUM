@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 import datetime
 
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
+
 
 # fact table
 sessions_df = pd.read_json("new-data/sessions.jsonl", lines=True)
@@ -86,15 +88,22 @@ if __name__ == "__main__":
     for event in dates:
         cups[str(event[0])][event[1]] += 1
     print(cups)
-    two_weeks_cups = make_three_weeks_cups(cups)
-
-    plt.plot(two_weeks_cups)
-    plt.show()
-    # all_knowledge_list = []
-    # all_knowledge_list.extend(cups['2019'])
-    # all_knowledge_list.extend(cups['2020'])
-    # all_knowledge_list.extend(cups['2021'])
-    # all_knowledge_list.extend(cups['2022'])
-    # print(all_knowledge_list)
-    # plt.plot(all_knowledge_list)
+    # two_weeks_cups = make_three_weeks_cups(cups)
+    # print(two_weeks_cups)
+    # plt.plot(two_weeks_cups)
     # plt.show()
+    all_knowledge_list = []
+    all_knowledge_list.extend(cups['2019'])
+    all_knowledge_list.extend(cups['2020'])
+    all_knowledge_list.extend(cups['2021'])
+    all_knowledge_list.extend(cups['2022'])
+    print(all_knowledge_list)
+    plt.plot(all_knowledge_list)
+    plt.show()
+
+    ###  PREDICT  ###
+    timeline = len(all_knowledge_list) - 80
+    model2 = ExponentialSmoothing(all_knowledge_list[:timeline])
+    model_fit2 = model2.fit()
+    yhat = model_fit2.predict(len(all_knowledge_list[:timeline]), len(all_knowledge_list[:timeline]))
+    print('estimated: ', yhat, '----> real: ', all_knowledge_list[timeline])
