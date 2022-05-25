@@ -13,13 +13,13 @@ import datetime
 
 from makeSeries import *
 
-sessions_df = pd.read_json("new-data/sessions.jsonl", lines=True)
+sessions_df = pd.read_json("data/sessions.jsonl", lines=True)
 sessions_df = sessions_df[sessions_df["event_type"] == "RETURN_PRODUCT"]
 # ns_df = pd.read_json("data/sessions.jsonl", lines=True)
 
 # dimension tables
-deliveries_df = pd.read_json("new-data/deliveries.jsonl", lines=True)
-products_df = pd.read_json("new-data/products.jsonl", lines=True)
+deliveries_df = pd.read_json("data/deliveries.jsonl", lines=True)
+products_df = pd.read_json("data/products.jsonl", lines=True)
 # users_df = pd.read_json("data/users.jsonl", lines=True)
 # sessions_df = sessions_df.loc[sessions_df["event_type"] == "RETURN_PRODUCT"]
 df = sessions_df.merge(products_df, on="product_id", how="left")
@@ -56,6 +56,7 @@ def make_count_prod_by_weeks(df, products_dict):
 
         tables_for_plt.append(all_knowledge_list)
         plt.plot(all_knowledge_list)
+        plt.xlabel(product)
         plt.show()
     print(tables_for_plt)
 
@@ -67,7 +68,7 @@ if __name__ == "__main__":
     df = make_desired_col_df(df)
 
     tables_for_plot = make_count_prod_by_weeks(df, products_dict)
-    for elem in tables_for_plot:
+    # for elem in tables_for_plot:
 
 
 

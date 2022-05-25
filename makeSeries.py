@@ -9,12 +9,12 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 
 # fact table
-sessions_df = pd.read_json("new-data/sessions.jsonl", lines=True)
+sessions_df = pd.read_json("data/sessions.jsonl", lines=True)
 
 # dimension tables
-# deliveries_df = pd.read_json("new-data/deliveries.jsonl", lines=True)
-# products_df = pd.read_json("new-data/products.jsonl", lines=True)
-# users_df = pd.read_json("new-data/users.jsonl", lines=True)
+# deliveries_df = pd.read_json("data/deliveries.jsonl", lines=True)
+# products_df = pd.read_json("data/products.jsonl", lines=True)
+# users_df = pd.read_json("data/users.jsonl", lines=True)
 
 # print(sessions_df['event_type'])
 
