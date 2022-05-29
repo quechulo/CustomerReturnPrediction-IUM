@@ -20,14 +20,11 @@ def makeData():
         '2021': np.zeros(54),
         '2022': np.zeros(54)
     }
-    # print(dates)
     for event in dates:
         cups[str(event[0])][event[1]] += 1
-    # print(cups)
     two_weeks_cups = make_three_weeks_cups(cups)
-    # print(two_weeks_cups)
-    plt.plot(two_weeks_cups)
-    plt.show()
+    # plt.plot(two_weeks_cups)
+    # plt.show()
     return two_weeks_cups
 
 def makeModel(data, timeline):
