@@ -67,6 +67,29 @@ def make_three_weeks_cups(cups):
 
     return all_knowledge_list
 
+def make_four_weeks_cups(cups):
+    three_weeks_cups = {
+        '2019': np.zeros(13),
+        '2020': np.zeros(13),
+        '2021': np.zeros(13),
+        '2022': np.zeros(13)
+    }
+
+    for key in cups:
+        j = 0
+        for i in range(1, 52, 4):
+            three_weeks_cups[key][j] = cups[key][i] + cups[key][i + 1] + cups[key][i + 2] + cups[key][i + 3]
+            j = j + 1
+
+    # print(three_weeks_cups)
+    all_knowledge_list = []
+    all_knowledge_list.extend(three_weeks_cups['2019'])
+    all_knowledge_list.extend(three_weeks_cups['2020'])
+    all_knowledge_list.extend(three_weeks_cups['2021'])
+    all_knowledge_list.extend(three_weeks_cups['2022'])
+
+    return all_knowledge_list
+
 def get_year_and_weeknum_df(df):
     weeks = df['timestamp'].dt.isocalendar().week
     years = df['timestamp'].dt.isocalendar().year

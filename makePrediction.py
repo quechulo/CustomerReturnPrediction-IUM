@@ -22,13 +22,13 @@ def makeData():
     }
     for event in dates:
         cups[str(event[0])][event[1]] += 1
-    two_weeks_cups = make_three_weeks_cups(cups)
+    weeks_cups = make_four_weeks_cups(cups)
     # plt.plot(two_weeks_cups)
     # plt.show()
-    return two_weeks_cups
+    return weeks_cups
 
-def makeModel(data, timeline):
-    model = ExponentialSmoothing(data[:timeline])
+def makeModel(data):
+    model = ExponentialSmoothing(data)
     model_fit = model.fit()
     return model_fit
 
@@ -36,7 +36,7 @@ def makePrediction(model_fit, data, timeline):
     yhat = model_fit.predict(len(data[:timeline]), len(data[:timeline]))
     return yhat
 
-def weeksBefore(date):
+def weeksBefore(date, numofweeks):
     weeks = date.isocalendar()[1]
     years = date.isocalendar()[0]
     if years == 2022:
@@ -45,13 +45,12 @@ def weeksBefore(date):
         weeks = weeks + 53 * 2
     elif years == 2020:
         weeks = weeks + 53
-    weeks = weeks // 3
+    weeks = weeks // numofweeks
     return weeks
 
 
-def predict(weeks_before):
+def predict(weeks_before, model):
     timeline = weeks_before
-    model = makeModel(data, timeline)
     prediction = makePrediction(model, data, timeline)
 
     print(data)
@@ -61,11 +60,12 @@ def predict(weeks_before):
     return prediction
 
 data = makeData()
+model = makeModel(data)
 
 if __name__ == '__main__':
-    date = datetime.datetime(2020, 6, 15)
-    weeks = weeksBefore(date)
-    predict(weeks)
+    date = datetime.datetime(2021, 9, 15)
+    weeks = weeksBefore(date, 4)
+    predict(weeks, model)
 
     # SARIMA example
     # contrived dataset
