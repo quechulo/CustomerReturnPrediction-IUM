@@ -63,7 +63,7 @@ data = makeData()
 model = makeModel(data)
 
 if __name__ == '__main__':
-    date = datetime.datetime(2021, 9, 15)
+    date = datetime.datetime(2022, 2, 15)
     weeks = weeksBefore(date, 4)
     predict(weeks, model)
 

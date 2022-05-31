@@ -38,27 +38,16 @@ def make_count_prod_weight_by_weeks(df, products_dict):
             products_dict['3-10'][str(event[1])][event[2]] += 1
         elif 10 < event[3] <= 30:
             products_dict['10-30'][str(event[1])][event[2]] += 1
-        # products_dict[str(event[0])][str(event[1])][event[2]] += 1
-    # print(products_dict)
 
     tables_for_plt = []
-    for product in products_dict:
-        all_knowledge_list = []
-        all_knowledge_list.extend(products_dict[product]['2019'])
-        all_knowledge_list.extend(products_dict[product]['2020'])
-        all_knowledge_list.extend(products_dict[product]['2021'])
-        all_knowledge_list.extend(products_dict[product]['2022'])
 
-        tables_for_plt.append(all_knowledge_list)
-        # plt.plot(all_knowledge_list)
-        # plt.xlabel(product)
-        # plt.show()
-    # print(tables_for_plt)
     for key in products_dict:
         ex = make_four_weeks_cups(products_dict[key])
-        plt.plot(ex)
-        plt.xlabel(key)
-        plt.show()
+        tables_for_plt.append(ex)
+    #     plt.plot(ex)
+    #     plt.xlabel(key)
+    #     plt.show()
+    # print(tables_for_plt)
     return tables_for_plt
 
 
