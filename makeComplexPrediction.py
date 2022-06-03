@@ -15,9 +15,24 @@ sessions_df = sessions_df[sessions_df["event_type"] == "RETURN_PRODUCT"]
 # deliveries_df = pd.read_json("data/deliveries.jsonl", lines=True)
 products_df = pd.read_json("data/products.jsonl", lines=True)
 # users_df = pd.read_json("data/users.jsonl", lines=True)
-# sessions_df = sessions_df.loc[sessions_df["event_type"] == "RETURN_PRODUCT"]
+sessions_df = sessions_df.loc[sessions_df["event_type"] == "RETURN_PRODUCT"]
 df = sessions_df.merge(products_df, on="product_id", how="left")
 
+data_normal = get_year_and_weeknum_df(sessions_df)
+# print(df)
+dates = data_normal.values.tolist()
+cups = {
+    '2019': np.zeros(54),
+    '2020': np.zeros(54),
+    '2021': np.zeros(54),
+    '2022': np.zeros(54)
+}
+for event in dates:
+    cups[str(event[0])][event[1]] += 1
+weeks_cups = make_four_weeks_cups(cups)
+plt.plot(weeks_cups)
+plt.show()
+data_normal = weeks_cups
 
 def makeData(df):
     df = make_desired_col_df(df)
@@ -56,11 +71,11 @@ def weeksBefore(date, numofweeks):
 def predict(weeks_before, models):
     timeline = weeks_before
     predictions = makePrediction(models, data, timeline)
-    for i in range(0, len(predictions)):
-        print(data[i])
-        print(data[i][:timeline])
-
-        print('estimated: ', predictions[i], '----> real: ', data[i][timeline])
+    # for i in range(0, len(predictions)):
+        # print(data[i])
+        # print(data[i][:timeline])
+        #
+        # print('estimated: ', predictions[i], '----> real: ', data[i][timeline])
 
     # TODO sum of 4 predictions
     prediction = 0
@@ -71,23 +86,4 @@ def predict(weeks_before, models):
 data = makeData(df)
 
 if __name__ == '__main__':
-    models = []
-    for category in data:
-        model = makeModel(category)
-        models.append(model)
-    ## peekle z models
-    date = datetime.datetime(2022, 2, 15)
-    weeks = weeksBefore(date, 4)
-    result = predict(weeks, models)
-    print(result)
-
-    # SARIMA example
-    # contrived dataset
-    # data = [x + random() for x in range(1, 100)]
-    # # fit model
-    # model = SARIMAX(two_weeks_cups[:timeline], order=(1, 0, 0), seasonal_order=(0, 0, 0, 0))
-    # model_fit = model.fit(disp=False)
-    # # make prediction
-    # yhat = model_fit.predict(len(two_weeks_cups[:timeline]), len(two_weeks_cups[:timeline]))
-    # print(yhat)
-
+    pass

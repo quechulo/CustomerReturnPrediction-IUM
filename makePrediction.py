@@ -24,8 +24,8 @@ def makeData():
     for event in dates:
         cups[str(event[0])][event[1]] += 1
     weeks_cups = make_four_weeks_cups(cups)
-    # plt.plot(two_weeks_cups)
-    # plt.show()
+    plt.plot(weeks_cups)
+    plt.show()
     return weeks_cups
 
 def makeModel(data):
@@ -54,29 +54,14 @@ def predict(weeks_before, model):
     timeline = weeks_before
     prediction = makePrediction(model, data, timeline)
 
-    print(data)
-    print(data[:timeline])
-
-    print('estimated: ', prediction, '----> real: ', data[timeline])
-    return prediction
+    # print(data)
+    # print(data[:timeline])
+    #
+    # print('estimated: ', prediction, '----> real: ', data[timeline])
+    return prediction[0]
 
 data = makeData()
 model = makeModel(data)
 filename = 'make_prediction_model.sav'
 pickle.dump(model, open(filename, 'wb'))
-
-if __name__ == '__main__':
-    date = datetime.datetime(2022, 2, 15)
-    weeks = weeksBefore(date, 4)
-    predict(weeks, model)
-
-    # SARIMA example
-    # contrived dataset
-    # data = [x + random() for x in range(1, 100)]
-    # # fit model
-    # model = SARIMAX(two_weeks_cups[:timeline], order=(1, 0, 0), seasonal_order=(0, 0, 0, 0))
-    # model_fit = model.fit(disp=False)
-    # # make prediction
-    # yhat = model_fit.predict(len(two_weeks_cups[:timeline]), len(two_weeks_cups[:timeline]))
-    # print(yhat)
 
