@@ -1,5 +1,6 @@
 # CustomerReturnPrediction-IUM
 Uruchomienie:
+
 Należy sklonować repozytorium:
 `git clone https://github.com/quechulo/CustomerReturnPrediction-IUM.git`
 
