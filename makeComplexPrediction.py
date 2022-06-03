@@ -25,7 +25,7 @@ class MakeComplexPrediction:
         keys = ['10-30', '3-10', '1-3', '0.5-1', '0.2-0.5', '0-0.2']
         products_dict = dict.fromkeys(keys)
 
-        tables_for_plot = make_count_prod_weight_by_weeks(df, products_dict)
+        tables_for_plot = make_count_prod_weight_by_weeks(df, products_dict, keys)
         return tables_for_plot
 
     def makeModel(data):
