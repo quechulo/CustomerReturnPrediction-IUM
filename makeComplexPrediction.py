@@ -25,12 +25,12 @@ def makeData(df):
     keys = ['10-30', '3-10', '1-3', '0.5-1', '0.2-0.5', '0-0.2']
     products_dict = dict.fromkeys(keys)
 
-    tables_for_plot = make_count_prod_weight_by_weeks(df, products_dict)
+    tables_for_plot = make_count_prod_weight_by_weeks(df, products_dict, keys)
     return tables_for_plot
 
 def makeModel(data):
     model = ExponentialSmoothing(data)
-    model_fit = model.fit()
+    model_fit = model.fit() # to peekle aby zrobić file
     return model_fit
 
 def makePrediction(models, data, timeline):
@@ -75,6 +75,7 @@ if __name__ == '__main__':
     for category in data:
         model = makeModel(category)
         models.append(model)
+    ## peekle z models
     date = datetime.datetime(2022, 2, 15)
     weeks = weeksBefore(date, 4)
     result = predict(weeks, models)
