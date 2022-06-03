@@ -4,6 +4,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 from random import random
 import datetime
+import pickle
 
 from makeSeries import *
 
@@ -61,6 +62,8 @@ def predict(weeks_before, model):
 
 data = makeData()
 model = makeModel(data)
+filename = 'make_prediction_model.sav'
+pickle.dump(model, open(filename, 'wb'))
 
 if __name__ == '__main__':
     date = datetime.datetime(2022, 2, 15)
