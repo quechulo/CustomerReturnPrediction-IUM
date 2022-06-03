@@ -1,10 +1,10 @@
 # CustomerReturnPrediction-IUM
-Uruchomienie
+Uruchomienie:
+Należy sklonować repozytorium:
 `git clone https://github.com/quechulo/CustomerReturnPrediction-IUM.git`
 
 
 A następnie uruchomić skrypt:
-
 `python server.py`
 
 Usecases:
