@@ -1,5 +1,5 @@
 # CustomerReturnPrediction-IUM
-##Uruchomienie
+Uruchomienie
 `git clone https://github.com/quechulo/CustomerReturnPrediction-IUM.git`
 
 
